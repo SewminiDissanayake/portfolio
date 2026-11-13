@@ -17,7 +17,7 @@
 
 /* ---- Themes (switch with data-theme on <html>) ---- */
 /* Warm terracotta (default) */
-:root, [data-theme="terracotta"] {
+[data-theme="terracotta"] {
   --color-paper: #f3e6d6;   /* light cream for buttons/badges */
   --color-fg: #f6ead9;      /* warm off-white text */
   --color-accent: #f2a65a;  /* soft orange dot / accents */
@@ -28,16 +28,17 @@
   --hero-edge: #2a120a;     /* deep brown at the edges */
   --vignette: rgba(30, 12, 6, 0.6);
 }
-[data-theme="cream"] {
-  --hero-center: #f3e7d3;
-  --hero-mid: #d9c6a8;
-  --hero-edge: #5a4330;
-  --color-paper: #ebe2d1;
-  --color-fg: #2b211a;
-  --color-accent: #a8462a;  /* rust */
+/* Vintage cream (default): dark brown text on a warm paper background */
+:root, [data-theme="cream"] {
+  --color-paper: #f4ecdf;   /* cream (button text, badges) */
+  --color-fg: #2a120a;      /* deep brown text (the old background colour) */
+  --color-accent: #b0532a;  /* rust */
   --color-amber: #c08a4a;
-  --color-teal: #5f6f52;    /* olive */
-  --vignette: rgba(70, 45, 25, 0.45);
+  --color-teal: #5f6f52;
+  --hero-center: #fbf5ec;   /* soft light in the middle */
+  --hero-mid: #efe3d0;
+  --hero-edge: #d9c6a7;     /* warm tan at the edges */
+  --vignette: rgba(70, 45, 25, 0.35);
 }
 [data-theme="sage"] {
   --color-paper: #d9d6c3;

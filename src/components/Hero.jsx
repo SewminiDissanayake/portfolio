@@ -82,20 +82,20 @@ export default function Hero() {
       </div>
 
       {/* huge word behind him */}
-      <h2 className="pointer-events-none absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-medium leading-none tracking-tight text-fg/15 md:left-[60%] md:top-[55%] md:text-[19vw]">
+      <h2 className="pointer-events-none absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-medium leading-none tracking-tight text-fg/15 md:left-[60%] md:top-[40%] md:text-[19vw]">
         VISUALS
       </h2>
 
       {/* his portrait: RAW and GRADED stacked, cross-fading */}
-      <div className={`absolute bottom-[38vh] left-1/2 w-max -translate-x-1/2 md:bottom-0 md:left-[63%] ${p.size}`}>
+      <div className={`absolute bottom-[43vh] left-1/2 w-max -translate-x-1/2 md:bottom-0 md:left-[63%] ${p.size}`}>
         <img
           src={`${base}${p.file}-raw.webp`}
-          alt="Portrait (raw)"
+          alt="Kulara Ramanayake (raw photo)"
           className="h-full w-auto max-w-none object-contain"
         />
         <img
           src={`${base}${p.file}-graded.webp`}
-          alt="Portrait (colour graded)"
+          alt="Kulara Ramanayake (colour graded)"
           className={`absolute inset-0 h-full w-auto max-w-none object-contain transition-opacity duration-700 ${graded ? 'opacity-100' : 'opacity-0'}`}
         />
       </div>
@@ -110,7 +110,7 @@ export default function Hero() {
         </span>
         <a href="#" className="grid h-14 w-14 place-items-center rounded-full bg-[var(--hero-edge)]/85 font-display text-xl italic text-fg shadow-lg ring-1 ring-fg/15 backdrop-blur">
           <span>
-            HN<span className="text-accent">.</span>
+            KR<span className="text-accent">.</span>
           </span>
         </a>
         <button className="grid h-14 w-14 place-items-center rounded-full bg-[var(--hero-edge)]/85 shadow-lg ring-1 ring-fg/15 backdrop-blur" aria-label="Menu">
@@ -125,10 +125,12 @@ export default function Hero() {
       {/* name + intro */}
       <div className="absolute bottom-28 left-6 right-6 z-20 md:bottom-24 md:left-12 md:max-w-xl">
         <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] text-fg/80">
-          <span className="h-2 w-2 rounded-full bg-accent" /> HELLO, I'M HIS NAME
+          <span className="h-2 w-2 rounded-full bg-accent" /> HELLO, I'M KULARA RAMANAYAKE
         </p>
-        <h1 className="mt-3 text-6xl font-extrabold leading-[0.9] tracking-[-0.04em] md:text-8xl">
-          His Name<span className="text-accent">.</span>
+        <h1 className="mt-3 text-5xl font-extrabold leading-[0.92] tracking-[-0.04em] md:text-7xl">
+          Kulara
+          <br />
+          Ramanayake<span className="text-accent">.</span>
         </h1>
         <p className="mt-5 text-lg font-light leading-snug text-fg/90 md:text-xl">
           I don't just record moments.
