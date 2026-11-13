@@ -78,3 +78,59 @@ body {
 /* slow spin for the lens focus rings */
 .lens-spin { animation: spin 90s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Entrance animations ---------- */
+.reveal, .line-up, .portrait-in, .word-in, .rings-in { animation-fill-mode: both; }
+
+/* text: fade + slide up, one after another (delay comes from --d) */
+.reveal { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* name: each line slides up from behind a mask (like a film title) */
+.line-up { animation: line-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0s) both; }
+@keyframes line-up { from { transform: translateY(105%); } to { transform: none; } }
+
+/* portrait: rises in, from slightly blurred and bigger (like a focus pull) */
+.portrait-in { animation: portrait-in 1.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both; }
+@keyframes portrait-in {
+  from { opacity: 0; transform: translateY(50px) scale(1.04); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* VISUALS: letters close in */
+.word-in { animation: word-in 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s both; }
+@keyframes word-in { from { opacity: 0; letter-spacing: 0.25em; } to { opacity: 1; letter-spacing: -0.025em; } }
+
+/* lens rings: zoom in gently */
+.rings-in { animation: rings-in 1.8s ease-out 0.1s both; }
+@keyframes rings-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
+
+/* hero waits (paused, hidden) until the shutter intro has opened */
+.is-waiting .reveal, .is-waiting .line-up, .is-waiting .portrait-in, .is-waiting .word-in, .is-waiting .rings-in {
+  animation-play-state: paused;
+}
+
+/* custom viewfinder cursor replaces the normal one (desktop only) */
+@media (pointer: fine) {
+  body.has-cursor, body.has-cursor * { cursor: none !important; }
+}
+
+/* film strip: sprocket holes on top and bottom, text scrolls forever */
+.film-strip::before, .film-strip::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--color-paper) 0 8px, transparent 8px 20px);
+  opacity: 0.35;
+}
+.film-strip::before { top: 4px; }
+.film-strip::after { bottom: 4px; }
+.film-track { animation: film 40s linear infinite; }
+@keyframes film { to { transform: translateX(-50%); } }
+
+/* respect people who turn animations off in their system settings */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .line-up, .portrait-in, .word-in, .rings-in, .lens-spin, .grain, .film-track { animation: none !important; }
+}
