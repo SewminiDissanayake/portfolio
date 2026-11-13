@@ -2,6 +2,7 @@ import { Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { THEMES } from '../themes'
+import MirrorlessCamera from './MirrorlessCamera'
 
 // Where he stands: right side on desktop, centre on phones
 function useSubjectX() {
@@ -118,6 +119,7 @@ export default function StudioScene({ themeName = 'cream' }) {
       <Suspense fallback={null}>
         <Portrait file={theme.portrait} />
       </Suspense>
+      <MirrorlessCamera accent={theme.accent} />
       <KeyLight theme={theme} />
       <BackdropLights theme={theme} />
     </Canvas>

@@ -3,6 +3,7 @@
 export const THEMES = {
   cream: {
     label: 'Vintage Cream',
+    accent: '#a8462a', // rust (matches the page accent)
     background: '#e9dfcc', // sky/fog colour behind everything
     paper: '#e8dcc6', // studio backdrop paper
     ambient: 1.6, // soft fill light (light themes need more)
@@ -15,22 +16,9 @@ export const THEMES = {
     sideIntensity: 120,
     portrait: 'hero-portrait-vintage.webp',
   },
-  sepia: {
-    label: 'Sepia Film',
-    background: '#d6bf9a',
-    paper: '#d2b991',
-    ambient: 1.3,
-    key: '#ffe2bb',
-    keyIntensity: 28,
-    rim: '#fff0d6',
-    back: '#f4c27e',
-    backIntensity: 180,
-    side: '#a8744a',
-    sideIntensity: 120,
-    portrait: 'hero-portrait-vintage.webp',
-  },
   sage: {
     label: 'Faded Sage',
+    accent: '#94681a', // mustard
     background: '#d5d2bd',
     paper: '#d1ceb6',
     ambient: 1.5,
@@ -42,19 +30,5 @@ export const THEMES = {
     side: '#aeb08c',
     sideIntensity: 120,
     portrait: 'hero-portrait-vintage.webp',
-  },
-  teal: {
-    label: 'Teal & Orange',
-    background: '#071317',
-    paper: '#12211f',
-    ambient: 0.15,
-    key: '#ffc999',
-    keyIntensity: 32,
-    rim: '#3fd0d4',
-    back: '#1d8f97',
-    backIntensity: 420,
-    side: '#0f5f68',
-    sideIntensity: 320,
-    portrait: 'hero-portrait.webp',
   },
 }
