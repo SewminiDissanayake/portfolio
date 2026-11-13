@@ -1,22 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap');
 @import "tailwindcss";
 
-/* Teal & Orange palette (Hollywood blockbuster grade) */
+/* Page colours. "paper" = background, "fg" = text.
+   Each theme below overrides these, so one change recolours the whole site. */
 @theme {
-  --color-ink: #071317;      /* deep teal-black background */
-  --color-accent: #ff8a3d;   /* warm orange (main accent) */
-  --color-amber: #c96a2b;    /* darker orange */
-  --color-teal: #1f9fa6;     /* teal (second accent) */
-  --color-ivory: #e8f1f2;    /* cool white text */
+  --color-paper: #e9dfcc;
+  --color-fg: #2b211a;
+  --color-accent: #a8462a;
+  --color-amber: #c08a4a;
+  --color-teal: #5f6f52;
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+/* ---- Themes (switch with data-theme on <html>) ---- */
+:root, [data-theme="cream"] {
+  --color-paper: #ebe2d1;
+  --color-fg: #2b211a;
+  --color-accent: #a8462a;  /* rust */
+  --color-amber: #c08a4a;
+  --color-teal: #5f6f52;    /* olive */
+  --vignette: rgba(70, 45, 25, 0.45);
+}
+[data-theme="sepia"] {
+  --color-paper: #dcc8a6;
+  --color-fg: #2e2116;
+  --color-accent: #7a2e1f;  /* oxblood */
+  --color-amber: #a8743c;
+  --color-teal: #4e5a4a;
+  --vignette: rgba(60, 35, 15, 0.5);
+}
+[data-theme="sage"] {
+  --color-paper: #d9d6c3;
+  --color-fg: #23251f;
+  --color-accent: #94681a;  /* mustard */
+  --color-amber: #8a6a3a;
+  --color-teal: #556b5a;
+  --vignette: rgba(40, 45, 30, 0.4);
+}
+[data-theme="teal"] {
+  --color-paper: #071317;
+  --color-fg: #e8f1f2;
+  --color-accent: #ff8a3d;
+  --color-amber: #c96a2b;
+  --color-teal: #1f9fa6;
+  --vignette: rgba(7, 19, 23, 0.85);
+}
+
 body {
-  background: var(--color-ink);
-  color: var(--color-ivory);
+  background: var(--color-paper);
+  color: var(--color-fg);
   font-family: var(--font-sans);
 }
 
@@ -33,9 +68,3 @@ body {
   100% { transform: translate(0, 0); }
 }
 
-/* Floating tool chips */
-.float-chip { animation: float 6s ease-in-out infinite; }
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
