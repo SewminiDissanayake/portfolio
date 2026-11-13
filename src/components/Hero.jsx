@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react'
 
 const base = import.meta.env.BASE_URL
 
-// The two photos we are comparing (each has a RAW and a GRADED version)
-const PHOTOS = {
-  1: { file: 'photo1', label: 'PHOTO 1 · STANDING', size: 'h-[72vh] md:h-[92vh]' },
-  2: { file: 'photo2', label: 'PHOTO 2 · SOFA', size: 'h-[60vh] md:h-[84vh]' },
-}
+// His hero photo (has a RAW and a GRADED version in /public)
+const PHOTO = { file: 'photo2', size: 'h-[48vh] md:h-[86vh]' }
 
 // Running camera timecode: HH:MM:SS:FF (25 fps)
 function useTimecode() {
@@ -71,8 +68,7 @@ function FocusRings() {
 
 export default function Hero() {
   const [graded, setGraded] = useState(true)
-  const [photo, setPhoto] = useState(1)
-  const p = PHOTOS[photo]
+  const p = PHOTO
   const timecode = useTimecode()
 
   return (
@@ -91,7 +87,7 @@ export default function Hero() {
       </h2>
 
       {/* his portrait: RAW and GRADED stacked, cross-fading */}
-      <div className={`absolute bottom-[16vh] left-1/2 w-max -translate-x-1/2 md:bottom-0 md:left-[63%] ${p.size}`}>
+      <div className={`absolute bottom-[38vh] left-1/2 w-max -translate-x-1/2 md:bottom-0 md:left-[63%] ${p.size}`}>
         <img
           src={`${base}${p.file}-raw.webp`}
           alt="Portrait (raw)"
@@ -105,7 +101,7 @@ export default function Hero() {
       </div>
 
       {/* bottom shade so the text is easy to read */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--hero-edge)] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t md:h-1/2 from-[var(--hero-edge)] to-transparent" />
 
       {/* top bar: logo + menu */}
       <header className="absolute inset-x-6 top-6 z-20 flex items-center justify-between md:inset-x-10 md:top-8">
@@ -125,19 +121,6 @@ export default function Hero() {
           </span>
         </button>
       </header>
-
-      {/* TEMPORARY: compare the two photos (remove once we pick one) */}
-      <div className="absolute left-1/2 top-24 z-30 flex -translate-x-1/2 gap-1 rounded-full border border-fg/20 bg-paper/80 p-1 font-mono text-[10px] tracking-widest backdrop-blur md:top-9">
-        {Object.entries(PHOTOS).map(([key, ph]) => (
-          <button
-            key={key}
-            onClick={() => setPhoto(Number(key))}
-            className={`rounded-full px-4 py-1.5 transition-colors ${photo === Number(key) ? 'bg-fg text-paper' : 'text-fg/70 hover:text-accent'}`}
-          >
-            {ph.label}
-          </button>
-        ))}
-      </div>
 
       {/* name + intro */}
       <div className="absolute bottom-28 left-6 right-6 z-20 md:bottom-24 md:left-12 md:max-w-xl">
