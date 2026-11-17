@@ -6,8 +6,10 @@ import Aerial from './components/Aerial'
 import MediaPromo from './components/MediaPromo'
 import Lab from './components/Lab'
 import Services from './components/Services'
+import Contact from './components/Contact'
+import Timeline from './components/Timeline'
 
-// The page is built from sections. Next: About, Contact.
+// The page is built from sections, top to bottom.
 export default function App() {
   const [ready, setReady] = useState(false) // true once the shutter intro has opened
   return (
@@ -19,6 +21,8 @@ export default function App() {
       <MediaPromo />
       <Lab />
       <Services />
+      <Contact />
+      <Timeline />
     </main>
   )
 }

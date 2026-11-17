@@ -116,7 +116,7 @@ export default function Hero({ ready = true }) {
   const timecode = useTimecode()
 
   return (
-    <section ref={sectionRef} className={`${ready ? 'is-ready' : 'is-waiting'} hero-bg relative h-screen min-h-[640px] w-full overflow-hidden text-fg`}>
+    <section id="top" ref={sectionRef} className={`${ready ? 'is-ready' : 'is-waiting'} hero-bg relative h-screen min-h-[640px] w-full overflow-hidden text-fg`}>
       {/* film grain */}
       <div className="grain pointer-events-none absolute inset-0 z-30 opacity-[0.08] mix-blend-overlay" />
 
