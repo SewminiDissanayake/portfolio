@@ -156,11 +156,25 @@ body {
 .award-stage.is-lit .award-badge { opacity: 1; transform: none; transition-delay: 0.4s; box-shadow: 0 0 60px rgba(176, 83, 42, 0.35); }
 .award-stage.is-lit .award-text { opacity: 1; transform: none; transition-delay: 0.7s; }
 
+/* the lab: notebook grid paper + floating animation stills */
+.lab-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-fg) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-fg) 6%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.lab-loading { animation: loading 2.4s ease-in-out infinite; }
+@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+.lab-float { animation: lab-float 5s ease-in-out infinite; }
+@keyframes lab-float { 0%, 100% { transform: scale(1.02) translateY(0); } 50% { transform: scale(1.06) translateY(-8px); } }
+
 /* lightbox: fade in, photo eases up */
 .lightbox-in { animation: rise 0.4s ease-out both; }
 .lightbox-media { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 /* respect people who turn animations off in their system settings */
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .line-up, .portrait-in, .word-in, .rings-in, .lens-spin, .grain, .film-track, .flight-dash, .rotor, .pin-pulse, .kenburns, .reel-progress, .heart-beat { animation: none !important; }
+  .reveal, .line-up, .portrait-in, .word-in, .rings-in, .lens-spin, .grain, .film-track, .flight-dash, .rotor, .pin-pulse, .kenburns, .reel-progress, .heart-beat, .lab-loading { animation: loading 2.4s ease-in-out infinite; }
+@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+.lab-float { animation: none !important; }
 }

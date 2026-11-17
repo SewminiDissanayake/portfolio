@@ -4,6 +4,8 @@ import Intro from './components/Intro'
 import Work from './components/Work'
 import Aerial from './components/Aerial'
 import MediaPromo from './components/MediaPromo'
+import Lab from './components/Lab'
+import Services from './components/Services'
 
 // The page is built from sections. Next: About, Contact.
 export default function App() {
@@ -15,6 +17,8 @@ export default function App() {
       <Work />
       <Aerial />
       <MediaPromo />
+      <Lab />
+      <Services />
     </main>
   )
 }
