@@ -182,3 +182,15 @@ body {
 @keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
 .lab-float { animation: none !important; }
 }
+
+/* ---- full-screen menu: opens as a circle growing from the hamburger ---- */
+.menu-overlay {
+  clip-path: circle(0% at calc(100% - 52px) 52px);
+  transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.menu-overlay.is-open { clip-path: circle(150% at calc(100% - 52px) 52px); }
+.menu-overlay .menu-item { opacity: 0; transform: translateY(24px); transition: opacity .5s, transform .6s cubic-bezier(.2,.8,.2,1); }
+.menu-overlay.is-open .menu-item { opacity: 1; transform: none; transition-delay: calc(0.3s + var(--i) * 0.06s); }
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay, .menu-overlay .menu-item { transition: none; }
+}

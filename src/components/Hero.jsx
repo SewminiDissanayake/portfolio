@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Magnetic from './Magnetic'
 import FilmStrip from './FilmStrip'
 import AboutPanel from './AboutPanel'
+import MenuOverlay from './MenuOverlay'
 
 const base = import.meta.env.BASE_URL
 
@@ -113,6 +114,7 @@ export default function Hero({ ready = true }) {
   }
   const p = PHOTO
   const [about, setAbout] = useState(false)
+  const [menu, setMenu] = useState(false)
   const timecode = useTimecode()
 
   return (
@@ -172,7 +174,7 @@ export default function Hero({ ready = true }) {
         </a>
         </Magnetic>
         <Magnetic>
-        <button data-cursor="MENU" className="grid h-14 w-14 place-items-center rounded-full bg-[var(--hero-edge)]/85 shadow-lg ring-1 ring-fg/15 backdrop-blur" aria-label="Menu">
+        <button onClick={() => setMenu(true)} data-cursor="MENU" className="grid h-14 w-14 place-items-center rounded-full bg-[var(--hero-edge)]/85 shadow-lg ring-1 ring-fg/15 backdrop-blur" aria-label="Menu">
           <span className="flex flex-col gap-1.5">
             <span className="h-[2px] w-5 bg-fg" />
             <span className="h-[2px] w-5 bg-fg" />
@@ -245,6 +247,7 @@ export default function Hero({ ready = true }) {
       <FilmStrip />
 
       {/* "My story" panel (opened by the MY STORY button) */}
+      <MenuOverlay open={menu} onClose={() => setMenu(false)} onStory={() => { setMenu(false); setAbout(true) }} />
       <AboutPanel open={about} onClose={() => setAbout(false)} />
     </section>
   )

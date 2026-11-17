@@ -7,7 +7,6 @@ import MediaPromo from './components/MediaPromo'
 import Lab from './components/Lab'
 import Services from './components/Services'
 import Contact from './components/Contact'
-import Timeline from './components/Timeline'
 
 // The page is built from sections, top to bottom.
 export default function App() {
@@ -22,7 +21,6 @@ export default function App() {
       <Lab />
       <Services />
       <Contact />
-      <Timeline />
     </main>
   )
 }
