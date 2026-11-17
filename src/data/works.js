@@ -5,6 +5,8 @@
 //   video   → optional: a YouTube link, or an .mp4 in /public/work/
 //   preview → optional: a short muted .mp4 that plays when you hover the card
 //   story   → 1–3 sentences about the event
+//   gps     → optional [lat, lng] — Aerial projects with gps appear as pins on the drone map
+//   altitude→ optional flight height in metres, shown on the drone HUD
 //   layout  → optional poster style: 'album' | 'magazine' | 'collage' | 'film'
 //   text    → optional: extra paragraphs for the album layout, e.g. ['First…', 'Second…']
 //             (if layout is left out: Weddings→album, Events→collage, Aerial→film, Nature→magazine)
@@ -62,6 +64,8 @@ export const WORKS = [
     location: 'Knuckles Range',
     year: 2025,
     role: 'Drone pilot & edit',
+    gps: [7.45, 80.78],
+    altitude: 120,
     image: 'work/aerial-01.webp',
     preview: null,
     video: null, // e.g. 'https://youtu.be/xxxxxxxx'
@@ -136,9 +140,11 @@ export const WORKS = [
     id: 'aerial-02',
     title: 'Coastline',
     category: 'Aerial',
-    location: 'Southern coast',
+    location: 'Mirissa',
     year: 2025,
     role: 'Drone pilot',
+    gps: [5.9483, 80.4565],
+    altitude: 90,
     image: 'work/aerial-02.webp',
     preview: null,
     video: null, // e.g. 'https://youtu.be/xxxxxxxx'
@@ -227,6 +233,26 @@ export const WORKS = [
       'work/photoshoot-01-02.webp',
       'work/photoshoot-01-03.webp',
       'work/photoshoot-01-04.webp',
+    ],
+  },
+  {
+    id: 'aerial-03',
+    title: 'Lion Rock at Dawn',
+    category: 'Aerial',
+    location: 'Sigiriya',
+    year: 2026,
+    role: 'Drone pilot & edit',
+    gps: [7.957, 80.7603],
+    altitude: 110,
+    image: 'work/aerial-03.webp',
+    preview: null,
+    video: null,
+    story: 'Placeholder story — replace with a few words about this flight.',
+    photos: [
+      'work/aerial-03-01.webp',
+      'work/aerial-03-02.webp',
+      'work/aerial-03-03.webp',
+      'work/aerial-03-04.webp',
     ],
   },
 ]

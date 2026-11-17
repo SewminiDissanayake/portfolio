@@ -214,4 +214,124 @@ export function FilmLayout({ work, photos, open }) {
   )
 }
 
-export const LAYOUTS = { magazine: MagazineLayout, collage: CollageLayout, film: FilmLayout }
+
+// ─────────────────────────────────────────────────────────── 4. ALBUM (photo-book spreads)
+// Cream "pages" with tight photo clusters, arch-shaped photos, a magazine paragraph and a
+// handwritten-style signature. Each spread uses a different composition, in turn.
+
+function Pic({ src, alt, onClick, className = '', shape = '' }) {
+  return (
+    <button onClick={onClick} className={`group block h-full w-full overflow-hidden ${shape} ${className}`} aria-label={`View ${alt} full screen`}>
+      <img src={`${base}${src}`} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+    </button>
+  )
+}
+
+const ARCH = 'rounded-t-[999px]' // arch-shaped photo (rounded top)
+
+function Page({ children, delay = 0 }) {
+  const [ref, seen] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`mx-auto max-w-6xl bg-[#f7f1e7] p-5 text-[#2a120a] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-1000 ease-out md:p-10 ${seen ? 'opacity-100' : 'translate-y-12 opacity-0'}`}
+    >
+      {children}
+    </div>
+  )
+}
+
+function Paragraph({ work, text, first }) {
+  return (
+    <div className="flex h-full flex-col justify-center gap-5">
+      {first && <p className="font-mono text-[10px] tracking-[0.35em] text-[#b0532a]">{work.category.toUpperCase()} · {work.location.toUpperCase()} · {work.year}</p>}
+      <p className={`text-[13px] leading-[1.75] text-[#2a120a]/80 md:text-sm ${first ? 'first-letter:float-left first-letter:mr-2 first-letter:font-display first-letter:text-6xl first-letter:leading-[0.8] first-letter:text-[#b0532a]' : ''}`}>
+        {text}
+      </p>
+      <p className="font-script text-4xl text-[#2a120a] md:text-5xl">{first ? work.title : 'with love'}</p>
+    </div>
+  )
+}
+
+export function AlbumLayout({ work, photos, open }) {
+  const P = (i) => ({ src: pick(photos, i), alt: `${work.title} — photo ${(i % photos.length) + 1}`, onClick: () => open(i % photos.length) })
+  const texts = work.text?.length
+    ? work.text
+    : [
+        work.story,
+        'Every frame was planned around the light — the slow hour before sunset, the quiet minutes between the ceremony and the celebration. (Sample text: replace with the real story.)',
+        'What stays is not the poses but the in-between: a hand reached for, a laugh nobody expected, a look across the room.',
+      ]
+
+  // the spread designs, used in turn
+  const spreads = [
+    // A: cluster of photos (left) + paragraph and signature (right)
+    (k) => (
+      <div className="grid gap-6 md:grid-cols-12 md:gap-10">
+        <div className="grid h-[70vh] max-h-[640px] grid-cols-6 grid-rows-6 gap-2 md:col-span-8">
+          <div className="col-span-4 row-span-4"><Pic {...P(k)} /></div>
+          <div className="col-span-2 row-span-3"><Pic {...P(k + 1)} /></div>
+          <div className="col-span-2 row-span-3"><Pic {...P(k + 2)} /></div>
+          <div className="col-span-2 row-span-2"><Pic {...P(k + 3)} /></div>
+          <div className="col-span-2 row-span-2"><Pic {...P(k + 1)} /></div>
+        </div>
+        <div className="md:col-span-4"><Paragraph work={work} text={texts[0]} first /></div>
+      </div>
+    ),
+    // B: paragraph (left) + arch photo with a small photo overlapping it (right)
+    (k) => (
+      <div className="grid gap-6 md:grid-cols-12 md:items-center md:gap-10">
+        <div className="order-2 md:order-1 md:col-span-5"><Paragraph work={work} text={texts[1 % texts.length]} /></div>
+        <div className="relative order-1 h-[70vh] max-h-[620px] md:order-2 md:col-span-7">
+          <div className="ml-auto h-full w-[78%]"><Pic {...P(k)} shape={ARCH} /></div>
+          <div className="absolute bottom-6 left-0 h-[42%] w-[40%] border-[6px] border-[#f7f1e7] shadow-xl"><Pic {...P(k + 1)} /></div>
+        </div>
+      </div>
+    ),
+    // C: three tall photos side by side, caption underneath
+    (k) => (
+      <div>
+        <div className="grid h-[62vh] max-h-[560px] grid-cols-3 gap-2 md:gap-3">
+          <Pic {...P(k)} />
+          <div className="pt-10"><Pic {...P(k + 1)} /></div>
+          <Pic {...P(k + 2)} />
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-12 md:items-end">
+          <p className="font-script text-4xl md:col-span-4 md:text-5xl">the details</p>
+          <p className="text-[13px] leading-[1.75] text-[#2a120a]/75 md:col-span-8 md:text-sm">{texts[2 % texts.length]}</p>
+        </div>
+      </div>
+    ),
+    // D: one big photo + a 2×2 grid
+    (k) => (
+      <div className="grid h-auto gap-2 md:h-[66vh] md:max-h-[600px] md:grid-cols-2">
+        <div className="h-[50vh] md:h-full"><Pic {...P(k)} /></div>
+        <div className="grid h-[50vh] grid-cols-2 grid-rows-2 gap-2 md:h-full">
+          <Pic {...P(k + 1)} />
+          <Pic {...P(k + 2)} shape={ARCH} />
+          <Pic {...P(k + 3)} />
+          <Pic {...P(k + 4)} />
+        </div>
+      </div>
+    ),
+  ]
+
+  // how many spreads: enough to show every photo at least once (min 2, max 4)
+  const count = Math.min(spreads.length, Math.max(2, Math.ceil(photos.length / 3)))
+
+  return (
+    <div className="space-y-10 px-4 py-14 md:space-y-16 md:px-12 md:py-20">
+      {/* album cover title */}
+      <div className="text-center">
+        <p className="font-mono text-[11px] tracking-[0.4em] text-accent">THE ALBUM</p>
+        <h2 className="mt-3 font-script text-6xl text-paper md:text-8xl">{work.title}</h2>
+      </div>
+      {Array.from({ length: count }).map((_, s) => (
+        <Page key={s}>{spreads[s](s * 3)}</Page>
+      ))}
+    </div>
+  )
+}
+
+export const LAYOUTS = { magazine: MagazineLayout, collage: CollageLayout, film: FilmLayout, album: AlbumLayout }
