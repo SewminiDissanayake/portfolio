@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Magnetic from './Magnetic'
 import FilmStrip from './FilmStrip'
+import AboutPanel, { AboutCard } from './AboutPanel'
 
 const base = import.meta.env.BASE_URL
 
@@ -111,6 +112,7 @@ export default function Hero({ ready = true }) {
     setTimeout(() => setWiping(false), 1000)
   }
   const p = PHOTO
+  const [about, setAbout] = useState(false)
   const timecode = useTimecode()
 
   return (
@@ -209,9 +211,9 @@ export default function Hero({ ready = true }) {
           </a>
           </Magnetic>
           <Magnetic strength={0.25}>
-          <a href="#about" data-cursor="READ" className="border-b border-fg/60 pb-1 font-mono text-[11px] tracking-[0.2em] text-fg/90 hover:border-accent hover:text-accent">
-            MY STORY ↓
-          </a>
+          <button onClick={() => setAbout(true)} data-cursor="READ" className="border-b border-fg/60 pb-1 font-mono text-[11px] tracking-[0.2em] text-fg/90 hover:border-accent hover:text-accent">
+            MY STORY →
+          </button>
           </Magnetic>
         </div>
       </div>
@@ -241,6 +243,10 @@ export default function Hero({ ready = true }) {
       </div>
       {/* film strip ticker along the bottom */}
       <FilmStrip />
+
+      {/* "About me" card + the story panel it opens */}
+      <AboutCard onOpen={() => setAbout(true)} />
+      <AboutPanel open={about} onClose={() => setAbout(false)} />
     </section>
   )
 }

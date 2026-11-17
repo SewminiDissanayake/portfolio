@@ -168,6 +168,10 @@ body {
 .lab-float { animation: lab-float 5s ease-in-out infinite; }
 @keyframes lab-float { 0%, 100% { transform: scale(1.02) translateY(0); } 50% { transform: scale(1.06) translateY(-8px); } }
 
+/* hero "About me" card: only on screens with enough room */
+.hero-about-card { display: none; }
+@media (min-width: 900px) and (min-height: 700px) { .hero-about-card { display: flex; } }
+
 /* lightbox: fade in, photo eases up */
 .lightbox-in { animation: rise 0.4s ease-out both; }
 .lightbox-media { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
