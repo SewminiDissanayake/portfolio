@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Magnetic from './Magnetic'
 import FilmStrip from './FilmStrip'
-import AboutPanel, { AboutCard } from './AboutPanel'
+import AboutPanel from './AboutPanel'
 
 const base = import.meta.env.BASE_URL
 
@@ -244,8 +244,7 @@ export default function Hero({ ready = true }) {
       {/* film strip ticker along the bottom */}
       <FilmStrip />
 
-      {/* "About me" card + the story panel it opens */}
-      <AboutCard onOpen={() => setAbout(true)} />
+      {/* "My story" panel (opened by the MY STORY button) */}
       <AboutPanel open={about} onClose={() => setAbout(false)} />
     </section>
   )
