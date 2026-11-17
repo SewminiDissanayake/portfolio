@@ -5,7 +5,7 @@ import { LAYOUTS } from './StoryLayouts'
 const base = import.meta.env.BASE_URL
 
 // If an event doesn't choose a layout, use one that suits its category
-const DEFAULT_LAYOUT = { Weddings: 'magazine', Events: 'collage', Aerial: 'film', Nature: 'magazine' }
+const DEFAULT_LAYOUT = { 'Pre-shoots': 'album', Photoshoots: 'magazine', Weddings: 'album', Events: 'collage', Aerial: 'film', Nature: 'magazine' }
 
 // Turn a YouTube link into an embed link (returns null for other links)
 function youtubeEmbed(url) {

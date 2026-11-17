@@ -43,7 +43,11 @@ function hump() {
 
 // A modern mirrorless camera (generic design, no brand), turning 360°.
 // The lens points toward the viewer (+Z); turning around Y shows every side.
-export default function MirrorlessCamera({ accent }) {
+// Props:
+//   aim      → optional { x, y } rotation to turn toward (used by the category dial).
+//              Without it, the camera just keeps spinning 360°.
+//   position → where it sits; showOnMobile → also render on phones
+export default function MirrorlessCamera({ accent, aim = null, position = POS, scale = 1.05, showOnMobile = false, light = true }) {
   const group = useRef()
   const { size } = useThree()
   const isMobile = size.width < 768
@@ -53,15 +57,23 @@ export default function MirrorlessCamera({ accent }) {
   const humpGeo = useMemo(() => hump(), [])
   const target = useMemo(() => new THREE.Object3D(), [])
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!group.current) return
     const t = state.clock.elapsedTime
-    group.current.rotation.y = t * 0.45 - 0.5 // full turn ≈ 14 s
-    group.current.rotation.x = 0.12 // tilted slightly toward the viewer
-    group.current.position.y = POS[1] + Math.sin(t * 1.1) * 0.04 // gentle float
+    const g = group.current
+    if (aim) {
+      // turn smoothly toward the aimed direction (ease-out)
+      const k = 1 - Math.pow(0.02, delta)
+      g.rotation.y += (aim.y - g.rotation.y) * k
+      g.rotation.x += (aim.x - g.rotation.x) * k
+    } else {
+      g.rotation.y = t * 0.45 - 0.5 // full turn ≈ 14 s
+      g.rotation.x = 0.12 // tilted slightly toward the viewer
+    }
+    g.position.y = position[1] + Math.sin(t * 1.1) * 0.04 // gentle float
   })
 
-  if (isMobile) return null
+  if (isMobile && !showOnMobile) return null
 
   const matte = { color: '#1c1b1a', roughness: 0.65, metalness: 0.15 }
   const rubber = { color: '#141312', roughness: 0.95 }
@@ -71,10 +83,14 @@ export default function MirrorlessCamera({ accent }) {
   return (
     <>
       {/* soft key light just for the camera */}
-      <primitive object={target} position={POS} />
-      <spotLight target={target} position={[-0.5, 4.5, 4.5]} color="#fff4e6" intensity={90} angle={0.4} penumbra={1} />
+      {light && (
+        <>
+          <primitive object={target} position={position} />
+          <spotLight target={target} position={[-0.5, 4.5, 4.5]} color="#fff4e6" intensity={90} angle={0.4} penumbra={1} />
+        </>
+      )}
 
-      <group ref={group} position={POS} scale={1.05}>
+      <group ref={group} position={position} scale={scale}>
         {/* body */}
         <mesh geometry={bodyGeo} castShadow>
           <meshStandardMaterial {...matte} />

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { CATEGORIES, WORKS } from '../data/works'
 import EventStory from './EventStory'
 import Magnetic from './Magnetic'
+import CameraDial from './CameraDial'
 
 const base = import.meta.env.BASE_URL
 
@@ -98,6 +99,7 @@ function WorkCard({ work, index, onOpen }) {
 export default function Work() {
   const [filter, setFilter] = useState('All')
   const [open, setOpen] = useState(null) // index of the event story that is open
+  const gridRef = useRef(null)
 
   const shown = filter === 'All' ? WORKS : WORKS.filter((w) => w.category === filter)
   const count = (c) => (c === 'All' ? WORKS.length : WORKS.filter((w) => w.category === c).length)
@@ -105,7 +107,7 @@ export default function Work() {
   return (
     <section id="work" className="relative bg-paper px-6 py-24 text-fg md:px-12 md:py-32">
       {/* header */}
-      <div className="mb-14 grid gap-8 md:mb-20 md:grid-cols-[1fr_auto] md:items-end">
+      <div className="mb-6 grid gap-8 md:mb-4 md:grid-cols-[1fr_auto] md:items-end">
         <div>
           <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-fg/70">
             <span className="h-2 w-2 rounded-full bg-accent" /> 02 — SELECTED WORK
@@ -115,26 +117,34 @@ export default function Work() {
           </h2>
         </div>
         <p className="max-w-sm text-sm leading-relaxed text-fg/65 md:text-right">
-          A few favourite stories — weddings, events, the island from above and the quiet in between.
+          Turn the dial — pick a mode. Weddings, events, the island from above, portraits and the quiet in between.
         </p>
       </div>
 
-      {/* filters */}
-      <div className="mb-12 flex flex-wrap gap-2 md:mb-16" role="tablist" aria-label="Filter projects">
-        {CATEGORIES.map((c) => (
-          <Magnetic key={c} strength={0.2}>
-            <button
-              role="tab"
-              aria-selected={filter === c}
-              onClick={() => setFilter(c)}
-              className={`rounded-full border px-5 py-2.5 font-mono text-[11px] tracking-[0.2em] transition-colors duration-300 ${
-                filter === c ? 'border-fg bg-fg text-paper' : 'border-fg/20 text-fg/70 hover:border-fg/60 hover:text-fg'
-              }`}
-            >
-              {c.toUpperCase()} <span className={filter === c ? 'text-accent' : 'text-fg/40'}>{String(count(c)).padStart(2, '0')}</span>
+      {/* camera mode dial: pick a category */}
+      <CameraDial
+        categories={CATEGORIES.filter((c) => c !== 'All')}
+        counts={Object.fromEntries(CATEGORIES.map((c) => [c, count(c)]))}
+        active={filter}
+        onPick={(c) => {
+          setFilter(c)
+          setTimeout(() => gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 900)
+        }}
+      />
+
+      {/* what is showing + a way back to everything */}
+      <div ref={gridRef} className="mb-10 mt-6 flex scroll-mt-8 flex-wrap items-end justify-between gap-4 border-b border-fg/15 pb-5 md:mb-14">
+        <h3 className="text-3xl font-extrabold tracking-[-0.03em] md:text-5xl">
+          {filter === 'All' ? 'All stories' : filter}
+          <span className="ml-3 font-mono text-sm font-normal tracking-[0.2em] text-accent">{String(shown.length).padStart(2, '0')}</span>
+        </h3>
+        {filter !== 'All' && (
+          <Magnetic strength={0.2}>
+            <button onClick={() => setFilter('All')} className="rounded-full border border-fg/25 px-5 py-2.5 font-mono text-[11px] tracking-[0.2em] text-fg/70 hover:border-fg hover:text-fg">
+              ← SHOW ALL
             </button>
           </Magnetic>
-        ))}
+        )}
       </div>
 
       {/* masonry grid (the key makes the cards animate in again after a filter change) */}

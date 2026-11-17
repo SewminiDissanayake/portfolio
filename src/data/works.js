@@ -5,14 +5,15 @@
 //   video   → optional: a YouTube link, or an .mp4 in /public/work/
 //   preview → optional: a short muted .mp4 that plays when you hover the card
 //   story   → 1–3 sentences about the event
-//   layout  → optional poster style: 'magazine' | 'collage' | 'film'
-//             (if left out: Weddings→magazine, Events→collage, Aerial→film, Nature→magazine)
+//   layout  → optional poster style: 'album' | 'magazine' | 'collage' | 'film'
+//   text    → optional: extra paragraphs for the album layout, e.g. ['First…', 'Second…']
+//             (if layout is left out: Weddings→album, Events→collage, Aerial→film, Nature→magazine)
 //
 // Photos go in /public/work/. Export them ~2400px on the long side,
 // WebP or JPG at 85–90% quality (not from WhatsApp — it ruins quality).
-// Categories must be one of: Weddings, Events, Aerial, Nature
+// Categories must be one of: Weddings, Pre-shoots, Events, Photoshoots, Aerial, Nature
 
-export const CATEGORIES = ['All', 'Weddings', 'Events', 'Aerial', 'Nature']
+export const CATEGORIES = ['All', 'Weddings', 'Pre-shoots', 'Events', 'Photoshoots', 'Aerial', 'Nature']
 
 export const WORKS = [
   {
@@ -24,7 +25,7 @@ export const WORKS = [
     role: 'Shot & edited',
     image: 'work/sample-wedding-1.webp', // SAMPLE (Unsplash) — replace with Kulara's
     preview: null, // e.g. 'work/wedding-01-clip.mp4'
-    layout: 'magazine', // try 'magazine', 'collage' or 'film'
+    layout: 'album', // try 'album', 'magazine', 'collage' or 'film'
     video: null, // e.g. 'https://youtu.be/xxxxxxxx'
     story: 'An autumn lakeside wedding — soft light, slow moments and a lot of laughter. (Sample text: replace with the real story.)',
     photos: [
@@ -101,7 +102,7 @@ export const WORKS = [
     role: 'Photography',
     image: 'work/sample-wedding-3.webp', // SAMPLE
     preview: null,
-    layout: 'collage', // try 'magazine', 'collage' or 'film'
+    layout: 'collage', // try 'album', 'magazine', 'collage' or 'film'
     video: null, // e.g. 'https://youtu.be/xxxxxxxx'
     story: 'Placeholder story — replace with a few words about this event: who it was for, the mood, and what Kulara did.',
     photos: [
@@ -178,7 +179,7 @@ export const WORKS = [
     role: 'Wedding film',
     image: 'work/sample-wedding-4.webp', // SAMPLE
     preview: null,
-    layout: 'film', // try 'magazine', 'collage' or 'film'
+    layout: 'film', // try 'album', 'magazine', 'collage' or 'film'
     video: null, // e.g. 'https://youtu.be/xxxxxxxx'
     story: 'Placeholder story — replace with a few words about this event: who it was for, the mood, and what Kulara did.',
     photos: [
@@ -187,6 +188,45 @@ export const WORKS = [
       'work/sample-wedding-2.webp',
       'work/sample-wedding-3.webp',
       'work/sample-wedding-4.webp',
+    ],
+  },
+  {
+    id: 'preshoot-01',
+    title: 'Before the Big Day',
+    category: 'Pre-shoots',
+    location: 'Nuwara Eliya',
+    year: 2026,
+    role: 'Pre-shoot photography',
+    image: 'work/sample-wedding-3.webp', // SAMPLE
+    preview: null,
+    layout: 'album',
+    video: null,
+    story: 'A misty hill-country morning with the couple, weeks before the wedding. (Sample text: replace with the real story.)',
+    photos: [
+      // SAMPLE photos (Unsplash) — replace with Kulara's before going live
+      'work/sample-wedding-3.webp',
+      'work/sample-wedding-1.webp',
+      'work/sample-wedding-4.webp',
+      'work/sample-wedding-2.webp',
+    ],
+  },
+  {
+    id: 'photoshoot-01',
+    title: 'Studio Portraits',
+    category: 'Photoshoots',
+    location: 'Matale',
+    year: 2026,
+    role: 'Portrait session',
+    image: 'work/photoshoot-01.webp',
+    preview: null,
+    layout: 'magazine',
+    video: null,
+    story: 'Placeholder story — replace with a few words about this shoot.',
+    photos: [
+      'work/photoshoot-01-01.webp',
+      'work/photoshoot-01-02.webp',
+      'work/photoshoot-01-03.webp',
+      'work/photoshoot-01-04.webp',
     ],
   },
 ]
