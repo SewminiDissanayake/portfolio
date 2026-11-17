@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import Intro from './components/Intro'
 import Work from './components/Work'
 import Aerial from './components/Aerial'
+import MediaPromo from './components/MediaPromo'
 
 // The page is built from sections. Next: About, Contact.
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
       <Hero ready={ready} />
       <Work />
       <Aerial />
+      <MediaPromo />
     </main>
   )
 }
